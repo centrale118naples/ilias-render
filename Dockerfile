@@ -2,15 +2,7 @@ FROM php:8.1-apache
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    unzip \
-    git \
-    cron \
-    wget
+    libpq-dev libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip git cron wget
 
 # PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -22,8 +14,8 @@ RUN a2enmod rewrite
 
 WORKDIR /var/www/html
 
-# Clone official ILIAS repository
-RUN git clone --depth 1 -b stable https://github.com/ILIAS-eLearning/ILIAS.git temp_ilias \
+# Clona il branch corretto release_10
+RUN git clone --depth 1 --single-branch -b release_10 https://github.com/ILIAS-eLearning/ILIAS.git temp_ilias \
     && mv temp_ilias/* . \
     && rm -rf temp_ilias
 
