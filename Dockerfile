@@ -14,10 +14,8 @@ RUN a2enmod rewrite
 
 WORKDIR /var/www/html
 
-# Clona release_10 del repo ufficiale
-RUN git clone --depth 1 --single-branch -b release_10 https://github.com/ILIAS-eLearning/ILIAS.git temp_ilias \
-    && cp -r temp_ilias/Customizing temp_ilias/Modules temp_ilias/Services temp_ilias/setup temp_ilias/index.php temp_ilias/lang temp_ilias/templates . \
-    && rm -rf temp_ilias
+# Clona tutto il repository ufficiale release_10
+RUN git clone --depth 1 --single-branch -b release_10 https://github.com/ILIAS-eLearning/ILIAS.git .
 
 # Permessi
 RUN chown -R www-data:www-data /var/www/html \
