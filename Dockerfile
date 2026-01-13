@@ -14,11 +14,14 @@ RUN a2enmod rewrite
 
 WORKDIR /var/www/html
 
-# Clona tutto il repository ufficiale release_10
-RUN git clone --depth 1 --single-branch -b release_10 https://github.com/ILIAS-eLearning/ILIAS.git .
+# Clona tutto il repo ufficiale release_10 in cartella ilias
+RUN git clone --depth 1 --single-branch -b release_10 https://github.com/ILIAS-eLearning/ILIAS.git ilias
 
 # Permessi
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
+
+# Creiamo un index.php nella root per redirect automatico
+RUN echo "<?php header('Location: /ilias/setup/setup.php'); exit;" > /var/www/html/index.php
 
 EXPOSE 80
